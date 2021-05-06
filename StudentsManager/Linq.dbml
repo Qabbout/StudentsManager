@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="StudentsManager" Class="LinqDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=StudentsManager;Integrated Security=True" SettingsObjectName="StudentsManager.Properties.Settings" SettingsPropertyName="StudentsManagerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Course" Member="Courses">
+    <Type Name="Course">
+      <Column Name="id" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="major" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Course_Student" Member="Students" ThisKey="id" OtherKey="signedCourse" Type="Student" />
+      <Association Name="MajorType_Course" Member="MajorType" ThisKey="major" OtherKey="id" Type="MajorType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MajorType" Member="MajorTypes">
+    <Type Name="MajorType">
+      <Column Name="id" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="majorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="MajorType_Course" Member="Courses" ThisKey="id" OtherKey="major" Type="Course" />
+      <Association Name="MajorType_Student" Member="Students" ThisKey="id" OtherKey="major" Type="Student" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student" Member="Students">
+    <Type Name="Student">
+      <Column Name="id" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="age" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="major" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="signedCourse" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Course_Student" Member="Course" ThisKey="signedCourse" OtherKey="id" Type="Course" IsForeignKey="true" />
+      <Association Name="MajorType_Student" Member="MajorType" ThisKey="major" OtherKey="id" Type="MajorType" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
